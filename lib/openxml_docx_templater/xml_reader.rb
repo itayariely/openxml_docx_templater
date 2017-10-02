@@ -25,7 +25,7 @@ module OpenxmlDocxTemplater
       #original pattern {% %} destroy file with images
       # return NodeType::CONTROL if text.match?(/\s*\{%[^=#].+?%\}\s*/)
       #new pattern {{% %}} allow filw with images
-      return NodeType::CONTROL if text.match?(/\s*\{{%[^=#].+?%\}}\s^/)
+      return NodeType::CONTROL if text.match(/\s*\{{%[^=#].+?%\}}\s^/)
       NodeType::TEMPLATE
     end
   end
