@@ -3,8 +3,10 @@
 module OpenxmlDocxTemplater
   class DocxEruby
     include Debug
-
-    EMBEDDED_PATTERN = /\{%([=%]+)?(.*?)-?%\}/m
+    #original pattern {% %} destroy file with images
+    # EMBEDDED_PATTERN = /\{%([=%]+)?(.*?)-?%\}/m
+    #new pattern {{% %}} allow filw with images
+    EMBEDDED_PATTERN = /\{{%([=%]+)?(.*?)-?%\}}/m
 
     def initialize(template)
       @src = convert template

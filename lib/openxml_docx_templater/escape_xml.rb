@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class String
-  CODE_LINE_PATTERN = /{(.*?)%(.+?)%(.*?)}/
+  #original pattern {% %} destroy file with images
+  # CODE_LINE_PATTERN = /{(.*?)%(.+?)%(.*?)}/
+  #new pattern {{% %}} allow filw with images
+  CODE_LINE_PATTERN = /{{(.*?)%(.+?)%(.*?)}}/
   TAG_PATTERN = /<(.+?)>[\n]?/m
 
   def escape_xml
