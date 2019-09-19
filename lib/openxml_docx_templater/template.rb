@@ -16,16 +16,21 @@ module OpenxmlDocxTemplater
       tmpfiles = []
       Zip::File.open(@template) do |zipfile|
         zipfile.entries.select { |entry| entry.name[/\.xml$/] }.each do |xml_file|
-          content = zipfile.read(xml_file).refact.force_encoding('utf-8')
+          #specify file to convert better memory use
+          if ["word/document.xml","word/header1.xml","word/footer1.xml","word/header2.xml","word/footer2.xml"].include? xml_file.name
 
-          docxeruby = DocxEruby.new(XmlReader.new(content))
-          out = docxeruby.evaluate(context)
+            content = zipfile.read(xml_file).refact.force_encoding('utf-8')
 
-          tmpfiles << (file = Tempfile.new('openxml_template'))
-          file << out
-          file.close
+            docxeruby = DocxEruby.new(XmlReader.new(content))
+            out = docxeruby.evaluate(context)
 
-          zipfile.replace(xml_file, file.path)
+            tmpfiles << (file = Tempfile.new('openxml_template'))
+            file << out
+            file.close
+
+            zipfile.replace(xml_file, file.path)
+
+          end
         end
       end
     end
